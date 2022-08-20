@@ -1,3 +1,4 @@
+[![Go Reference](https://pkg.go.dev/badge/github.com/rutaka-n/genericset.svg)](https://pkg.go.dev/github.com/rutaka-n/genericset)
 # Generic Set
 
 `genericset` provides a simple map-based implementation of generic set.
