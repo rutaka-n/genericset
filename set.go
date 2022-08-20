@@ -122,3 +122,18 @@ func (s *Set[T]) Union(another *Set[T]) *Set[T] {
 	res.Add(another.ToSlice()...)
 	return &res
 }
+
+// Difference returns the difference between two sets. The new set consists of all elements that are in `s` but not in `another`.
+func (s *Set[T]) Difference(another *Set[T]) *Set[T] {
+	result := New[T]()
+	s.m.RLock()
+	defer s.m.RUnlock()
+	another.m.RLock()
+	defer another.m.RUnlock()
+	for elem, _ := range s.data {
+		if _, exists := another.data[elem]; !exists {
+			result.Add(elem)
+		}
+	}
+	return &result
+}

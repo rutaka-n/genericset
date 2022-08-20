@@ -146,3 +146,32 @@ func TestUnion(t *testing.T) {
 		}
 	}
 }
+
+func TestDifference(t *testing.T) {
+	cases := []struct {
+		desc     string
+		items1   []int
+		items2   []int
+		expected []int
+	}{
+        {"has common elements", []int{1,2,3}, []int{2,3,4}, []int{1}},
+		{"equal sets", []int{1, 2, 3}, []int{1, 2, 3}, []int{}},
+		{"sets has no common elements", []int{1, 2}, []int{3, 4}, []int{1, 2}},
+		{"one set is empty", []int{1, 2, 3}, []int{}, []int{1, 2, 3}},
+		{"both sets are empty", []int{}, []int{}, []int{}},
+	}
+	for _, tc := range cases {
+		s1 := New[int]()
+		s1.Add(tc.items1...)
+		s2 := New[int]()
+		s2.Add(tc.items2...)
+		expected := New[int]()
+		expected.Add(tc.expected...)
+
+		actual := s1.Difference(&s2)
+		if actual.Size() != expected.Size() || !expected.IsSubset(actual) {
+			t.Fatalf("%s: expected: %v got: %v for set: %v and set %v",
+				tc.desc, tc.expected, actual, s1, s2)
+		}
+	}
+}
