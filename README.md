@@ -1,6 +1,7 @@
 # Generic Set
 
-genericset provides a simple map-based implementation of generic set.
+`genericset` provides a simple map-based implementation of generic set.
+
 It uses `sync.RWMutex` to keep consistency of data.
 
 ## Installation
@@ -23,11 +24,11 @@ func main() {
     s1.Add(1,2,3)
     s2.Add(3,4,5)
 
-    s1.Intersection(s2) // [3]
-    s1.Union(s2) // [1,2,3,4,5]
+    s1.Intersection(&s2) // [3]
+    s1.Union(&s2) // [1,2,3,4,5]
     s1.IsEmpty() // false
     s1.Size() // 3
-    s1.IsSubset() // false
+    s1.IsSubset(&s2) // false
     // etc
 }
 ```
